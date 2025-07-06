@@ -11,7 +11,7 @@ import FA5 from 'react-native-vector-icons/FontAwesome5';
 import { socialMediaIcons } from '../../constants/data';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParams } from '../../navigation/AuthNavigator';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 type LoginNavigationProp = NativeStackNavigationProp<AuthStackParams, 'Login'>;
 
@@ -21,14 +21,12 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Welcome</Text>
-        <Text style={styles.title}>Back!</Text>
-      </View>
+      <Text style={styles.title}>Welcome Back!</Text>
+
       <View style={[styles.inputContainer, { marginBottom: 24 }]}>
         <FA5 name="user" size={20} />
         <TextInput
-          placeholder="Username or Email"
+          placeholder="Enter your email"
           placeholderTextColor={'grey'}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -48,11 +46,18 @@ const LoginScreen = () => {
           <FA5 name={isVisible ? 'eye-slash' : 'eye'} size={20} />
         </TouchableOpacity>
       </View>
-      <TouchableOpacity onPress={() => navigation.replace('ForgotPassword')}>
+      <TouchableOpacity onPress={() => navigation.navigate('ForgotPassword')}>
         <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => {}} style={styles.loginButton}>
+      <TouchableOpacity
+        onPress={() =>
+          navigation.dispatch(
+            CommonActions.reset({ index: 0, routes: [{ name: 'App' }] }),
+          )
+        }
+        style={styles.loginButton}
+      >
         <Text style={styles.loginText}>Login</Text>
       </TouchableOpacity>
 
@@ -69,23 +74,10 @@ const LoginScreen = () => {
             );
           })}
         </View>
-        <View style={styles.signupContainer}>
-          <Text style={[styles.signupText, { color: 'grey', marginRight: 10 }]}>
-            Create An Account
-          </Text>
+        <View style={styles.authPromptContainer}>
+          <Text style={styles.authPromptText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.replace('Register')}>
-            <Text
-              style={[
-                styles.signupText,
-                {
-                  color: '#F83758',
-                  fontWeight: 'bold',
-                  textDecorationLine: 'underline',
-                },
-              ]}
-            >
-              Sign Up
-            </Text>
+            <Text style={styles.authPromptLink}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -99,13 +91,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
-  titleContainer: {
-    marginVertical: 30,
-  },
 
   title: {
-    fontSize: 36,
+    fontSize: 30,
     fontWeight: 'bold',
+    marginVertical: 30,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -114,6 +104,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 10,
     paddingHorizontal: 10,
+    backgroundColor: '#f3f3f3',
   },
   inputText: {
     color: '#000',
@@ -157,12 +148,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  signupContainer: {
+  authPromptContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  signupText: {
+  authPromptText: {
     fontSize: 16,
+    color: 'grey',
+    marginRight: 10,
+  },
+  authPromptLink: {
+    fontSize: 16,
+    color: '#F83758',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
 

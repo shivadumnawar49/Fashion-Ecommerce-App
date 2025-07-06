@@ -27,14 +27,11 @@ const RegisterScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Create an</Text>
-        <Text style={styles.title}>account</Text>
-      </View>
+      <Text style={styles.title}>Create an account</Text>
       <View style={styles.inputContainer}>
         <FA5 name="user" size={20} />
         <TextInput
-          placeholder="Username or Email"
+          placeholder="Enter your email"
           placeholderTextColor={'grey'}
           keyboardType="email-address"
           autoCapitalize="none"
@@ -68,8 +65,11 @@ const RegisterScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={() => {}} style={styles.loginButton}>
-        <Text style={styles.loginText}>Create Account</Text>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('OtpVerification', {context:'signup'})}
+        style={styles.createAccountButton}
+      >
+        <Text style={styles.createAccountText}>Create Account</Text>
       </TouchableOpacity>
 
       <View style={styles.footer}>
@@ -85,23 +85,10 @@ const RegisterScreen = () => {
             );
           })}
         </View>
-        <View style={styles.signupContainer}>
-          <Text style={[styles.signupText, { color: 'grey', marginRight: 10 }]}>
-            I Already Have an Account
-          </Text>
+        <View style={styles.authPromptContainer}>
+          <Text style={styles.authPromptText}>Already have an account?</Text>
           <TouchableOpacity onPress={() => navigation.replace('Login')}>
-            <Text
-              style={[
-                styles.signupText,
-                {
-                  color: '#F83758',
-                  fontWeight: 'bold',
-                  textDecorationLine: 'underline',
-                },
-              ]}
-            >
-              Login
-            </Text>
+            <Text style={styles.authPromptLink}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -115,13 +102,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingHorizontal: 20,
   },
-  titleContainer: {
-    marginVertical: 30,
-  },
 
   title: {
-    fontSize: 36,
+    fontSize: 30,
     fontWeight: 'bold',
+    marginVertical: 30,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -131,17 +116,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 24,
+    backgroundColor: '#f3f3f3',
   },
   inputText: {
     color: '#000',
     marginLeft: 10,
     flex: 1,
   },
-  forgotPasswordText: {
-    color: '#F83758',
-    textAlign: 'right',
-  },
-  loginButton: {
+  createAccountButton: {
     backgroundColor: '#F83758',
     alignItems: 'center',
     justifyContent: 'center',
@@ -149,7 +131,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 50,
   },
-  loginText: {
+  createAccountText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
@@ -174,12 +156,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  signupContainer: {
+  authPromptContainer: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  signupText: {
+  authPromptText: {
     fontSize: 16,
+    color: 'grey',
+    marginRight: 10,
+  },
+  authPromptLink: {
+    fontSize: 16,
+    color: '#F83758',
+    fontWeight: 'bold',
+    textDecorationLine: 'underline',
   },
 });
 

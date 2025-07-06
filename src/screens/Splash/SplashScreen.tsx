@@ -1,4 +1,4 @@
-import {  StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useEffect } from 'react';
 import { w, h } from '../../constants/dimensions';
 import Logo from '../../assets/svg/logo.svg';
@@ -17,7 +17,7 @@ const SplashScreen = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('Onboarding');
+      navigation.replace('GetStarted');
     }, 3000);
   });
 
